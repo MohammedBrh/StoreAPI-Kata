@@ -1,0 +1,7 @@
+com\alten\store\service\ProductService.class
+com\alten\store\utils\InventoryStatus.class
+com\alten\store\entity\Product.class
+com\alten\store\StoreApplication.class
+com\alten\store\repository\ProductRepository.class
+com\alten\store\dto\mappers\ProductMapper.class
+com\alten\store\dto\ProcductDto.class
