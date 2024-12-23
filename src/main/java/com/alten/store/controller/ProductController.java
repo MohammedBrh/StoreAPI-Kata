@@ -13,10 +13,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/products")
 @AllArgsConstructor
-@NoArgsConstructor
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
 
 
