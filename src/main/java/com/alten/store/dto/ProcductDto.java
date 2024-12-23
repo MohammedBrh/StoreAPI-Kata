@@ -7,6 +7,7 @@ import java.time.Instant;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProcductDto {
         private Long id;
         private String code;

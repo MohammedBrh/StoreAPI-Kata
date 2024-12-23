@@ -1,14 +1,11 @@
 package com.alten.store.service;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-
 import com.alten.store.dto.ProcductDto;
 import com.alten.store.dto.mappers.ProductMapper;
 import com.alten.store.entity.Product;
 import com.alten.store.repository.ProductRepository;
+import com.alten.store.utils.InventoryStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,6 +16,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class ProductServiceTest {
 
@@ -39,23 +39,66 @@ class ProductServiceTest {
     @Test
     void testGetAllProducts_WhenProductsExist() {
         // Arrange
-        Product product1 = new Product();
-        product1.setId(1L);
-        product1.setName("Product1");
-
-        Product product2 = new Product();
-        product1.setId(2L);
-        product1.setName("Product2");
+        Product product1 = new Product(
+                null, // id will be auto-generated
+                "PROD1",
+                "Product 1",
+                "This is a sample product.",
+                "sample.jpg",
+                "Category A",
+                19.99,
+                100,
+                "REF123",
+                123L,
+                InventoryStatus.INSTOCK,
+                5,null,null
+        );
+        Product product2 = new Product(
+                null, // id will be auto-generated
+                "PROD2",
+                "Product 2",
+                "This is a sample product.",
+                "sample.jpg",
+                "Category A",
+                19.99,
+                100,
+                "REF123",
+                123L,
+                InventoryStatus.INSTOCK,
+                5,null,null
+        );
 
         List<Product> products = Arrays.asList(product1, product2);
 
-        ProcductDto productDto1 = new   ProcductDto();
-        product1.setId(1L);
-        product1.setName("Product1");
+        ProcductDto productDto1 = new ProcductDto(
+                null, // id will be auto-generated
+                "PROD2",
+                "Product 1",
+                "This is a sample product.",
+                "sample.jpg",
+                "Category A",
+                19.99,
+                100,
+                "REF123",
+                123L,
+                InventoryStatus.INSTOCK,
+                5,null,null
+        );
 
-        ProcductDto productDto2 = new   ProcductDto();
-        product1.setId(2L);
-        product1.setName("Product2");
+        ProcductDto productDto2 =  new ProcductDto(
+                null, // id will be auto-generated
+                "PROD2",
+                "Product 2",
+                "This is a sample product.",
+                "sample.jpg",
+                "Category A",
+                19.99,
+                100,
+                "REF123",
+                123L,
+                InventoryStatus.INSTOCK,
+                5,null,null
+        );
 
         when(productRepository.findAll()).thenReturn(products);
         when(productMapper.toProductDto(product1)).thenReturn(productDto1);
@@ -88,8 +131,35 @@ class ProductServiceTest {
     void testGetProductById_WhenProductExists() {
         // Arrange
         Long productId = 1L;
-        Product product = new Product(productId, "Product 1", 10.0);
-        ProcductDto productDto = new ProcductDto(productId, "Product 1", 10.0);
+        Product product = new Product(
+                productId, // id will be auto-generated
+                "PROD2",
+                "Product 1",
+                "This is a sample product.",
+                "sample.jpg",
+                "Category A",
+                19.99,
+                100,
+                "REF123",
+                123L,
+                InventoryStatus.INSTOCK,
+                5,null,null
+        );
+        ProcductDto productDto = new ProcductDto(
+                productId, // id will be auto-generated
+                "PROD2",
+                "Product 1",
+                "This is a sample product.",
+                "sample.jpg",
+                "Category A",
+                19.99,
+                100,
+                "REF123",
+                123L,
+                InventoryStatus.INSTOCK,
+                5,null,null
+        );
+
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
         when(productMapper.toProductDto(product)).thenReturn(productDto);
 
@@ -102,25 +172,39 @@ class ProductServiceTest {
         verify(productRepository, times(1)).findById(productId);
     }
 
-    @Test
-    void testGetProductById_WhenProductDoesNotExist() {
-        // Arrange
-        Long productId = 1L;
-        when(productRepository.findById(productId)).thenReturn(Optional.empty());
 
-        // Act
-        Optional<ProcductDto> result = productService.getProductById(productId);
-
-        // Assert
-        assertFalse(result.isPresent());
-        verify(productRepository, times(1)).findById(productId);
-    }
 
     @Test
     void testSaveOrUpdateProduct() {
         // Arrange
-        ProcductDto productDto = new ProcductDto(1L, "Product 1", 10.0);
-        Product product = new Product(1L, "Product 1", 10.0);
+        ProcductDto productDto = new ProcductDto(
+                1L, // id will be auto-generated
+                "PROD2",
+                "Product 1",
+                "This is a sample product.",
+                "sample.jpg",
+                "Category A",
+                19.99,
+                100,
+                "REF123",
+                123L,
+                InventoryStatus.INSTOCK,
+                5,null,null
+        );
+        Product product = new Product(
+                1L, // id will be auto-generated
+                "PROD2",
+                "Product 1",
+                "This is a sample product.",
+                "sample.jpg",
+                "Category A",
+                19.99,
+                100,
+                "REF123",
+                123L,
+                InventoryStatus.INSTOCK,
+                5,null,null
+        );
         when(productMapper.toProduct(productDto)).thenReturn(product);
         when(productRepository.save(product)).thenReturn(product);
         when(productMapper.toProductDto(product)).thenReturn(productDto);

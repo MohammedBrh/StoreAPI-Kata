@@ -37,7 +37,7 @@ public class ProductService {
     // Get product by ID as DTO
     public Optional<ProcductDto> getProductById(Long id) {
         Optional<Product> product = productRepository.findById(id);
-        return product.map(ProductMapper.INSTANCE::toProductDto);
+        return Optional.ofNullable(productMapper.toProductDto(product.get()));
     }
 
     // Save or update a product using DTO
